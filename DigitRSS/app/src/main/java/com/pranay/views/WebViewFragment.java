@@ -2,6 +2,7 @@ package com.pranay.views;
 
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,9 @@ public class WebViewFragment extends android.webkit.WebViewFragment {
         // Inflate the layout for this fragment
 
         webView = getWebView();
+        Snackbar.make(container,"Hello",Snackbar.LENGTH_LONG).show();
         return inflater.inflate(R.layout.fragment_web_view, container, false);
+
     }
 
 
