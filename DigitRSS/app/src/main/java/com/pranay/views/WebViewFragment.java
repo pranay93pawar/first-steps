@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.pranay.digitrss.R;
 
@@ -19,6 +20,7 @@ public class WebViewFragment extends Fragment {
     WebView webView;
     ViewGroup contentView;
     String urlToLoad ="";
+    ProgressBar mProgressBar;
 
     public WebViewFragment() {
         // Required empty public constructor
@@ -43,9 +45,13 @@ public class WebViewFragment extends Fragment {
     public void initView(ViewGroup viewGroup){
 
         webView = (WebView) viewGroup.findViewById(R.id.webView);
+        mProgressBar = (ProgressBar) viewGroup.findViewById(R.id.progressBarForWebView);
+        mProgressBar.setVisibility(View.VISIBLE);
+
         webView.setVisibility(View.VISIBLE);
         webView.loadUrl(urlToLoad);
         webView.setWebViewClient(new Callback());
+
 
 
     }
@@ -57,6 +63,12 @@ public class WebViewFragment extends Fragment {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return (true);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            mProgressBar.setVisibility(View.GONE);
         }
 
     }

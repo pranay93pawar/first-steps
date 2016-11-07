@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     tools:context="com.pranay.views.WebViewFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBarForWebView"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <WebView
         android:id="@+id/webView"
         android:visibility="gone"
