@@ -1,16 +1,11 @@
 package com.pranay.helpers;
 
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-
 import com.pranay.models.FeedItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +13,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 /**

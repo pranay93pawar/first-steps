@@ -1,7 +1,5 @@
 package com.pranay.models;
 
-import java.net.URL;
-
 /**
  * Created by pranay on 24/09/16.
  */

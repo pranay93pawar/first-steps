@@ -8,14 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.pranay.digitrss.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WebViewFragment extends android.webkit.WebViewFragment {
+public class WebViewFragment extends Fragment {
     WebView webView;
+    ViewGroup contentView;
+    String urlToLoad ="";
 
     public WebViewFragment() {
         // Required empty public constructor
@@ -27,12 +30,35 @@ public class WebViewFragment extends android.webkit.WebViewFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        webView = getWebView();
+        contentView = (ViewGroup) inflater.inflate(R.layout.fragment_web_view, container, false);
+        Bundle bundle= getArguments();
+        urlToLoad = bundle.getString("urlToLoad");
+
+        initView(contentView);
         Snackbar.make(container,"Hello",Snackbar.LENGTH_LONG).show();
-        return inflater.inflate(R.layout.fragment_web_view, container, false);
+        return contentView;
+
+    }
+
+    public void initView(ViewGroup viewGroup){
+
+        webView = (WebView) viewGroup.findViewById(R.id.webView);
+        webView.setVisibility(View.VISIBLE);
+        webView.loadUrl(urlToLoad);
+        webView.setWebViewClient(new Callback());
+
 
     }
 
 
+    public class Callback extends WebViewClient {
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return (true);
+        }
+
+    }
 
 }
