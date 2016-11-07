@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DigitRSS</string>
+    <string name="app_name">Digit RSS</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="action_settings">Settings</string>
 
