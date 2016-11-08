@@ -1,10 +1,13 @@
 package com.pranay.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by pranay on 24/09/16.
  */
 
-public class FeedItem {
+public class FeedItem implements Parcelable {
 
     private String title;
     private String navigationLink;
@@ -12,6 +15,45 @@ public class FeedItem {
     private String description;
     private String pubDate;
     private String postAuthor;
+
+    public FeedItem(){
+
+    }
+    public FeedItem(Parcel in) {
+        title = in.readString();
+        navigationLink = in.readString();
+        imageLink = in.readString();
+        description = in.readString();
+        pubDate = in.readString();
+        postAuthor = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(navigationLink);
+        dest.writeString(imageLink);
+        dest.writeString(description);
+        dest.writeString(pubDate);
+        dest.writeString(postAuthor);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<FeedItem> CREATOR = new Creator<FeedItem>() {
+        @Override
+        public FeedItem createFromParcel(Parcel in) {
+            return new FeedItem(in);
+        }
+
+        @Override
+        public FeedItem[] newArray(int size) {
+            return new FeedItem[size];
+        }
+    };
 
     public String getTitle() {
         return title;

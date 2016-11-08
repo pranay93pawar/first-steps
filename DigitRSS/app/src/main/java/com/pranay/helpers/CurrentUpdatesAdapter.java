@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.pranay.digitrss.HomeActivity;
 import com.pranay.digitrss.R;
 import com.pranay.models.FeedItem;
-import com.pranay.views.WebViewFragment;
+import com.pranay.views.WebViewPagerFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -82,11 +82,15 @@ public class CurrentUpdatesAdapter extends RecyclerView.Adapter<CurrentUpdatesAd
             int position = getAdapterPosition();
             String url = feedItemArrayList.get(position).getNavigationLink();
             Snackbar.make(view,"Hello",Snackbar.LENGTH_LONG).show();
-            WebViewFragment webViewFragment = new WebViewFragment();
+
+            WebViewPagerFragment webViewPagerFragment = new WebViewPagerFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("urlToLoad",url);
-            webViewFragment.setArguments(bundle);
-            ((HomeActivity)mContext).LoadFragment(webViewFragment);
+            bundle.putInt("position",position);
+            bundle.putParcelableArrayList("data",feedItemArrayList);
+            webViewPagerFragment.setArguments(bundle);
+            ((HomeActivity)mContext).LoadFragment(webViewPagerFragment);
+
+
         }
     }
 
