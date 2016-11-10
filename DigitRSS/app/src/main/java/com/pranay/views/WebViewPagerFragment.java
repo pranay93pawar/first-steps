@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,10 @@ public class WebViewPagerFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_web_view_pager, container, false);
 
         ((AppBarLayout)((HomeActivity)getActivity()).findViewById(R.id.app_bar)).setExpanded(false);
+
+        ActionBar actionBar = ((HomeActivity)getActivity()).getSupportActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setHomeButtonEnabled(true);
 
         initView(v);
         setAdapter();
