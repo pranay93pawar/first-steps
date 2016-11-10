@@ -2,12 +2,14 @@ package com.pranay.views;
 
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pranay.digitrss.HomeActivity;
 import com.pranay.digitrss.R;
 import com.pranay.helpers.WebViewPagerAdapter;
 import com.pranay.models.FeedItem;
@@ -32,6 +34,8 @@ public class WebViewPagerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_web_view_pager, container, false);
+
+        ((AppBarLayout)((HomeActivity)getActivity()).findViewById(R.id.app_bar)).setExpanded(false);
 
         initView(v);
         setAdapter();

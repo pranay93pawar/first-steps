@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.pranay.digitrss.HomeActivity;
 import com.pranay.digitrss.R;
 import com.pranay.helpers.CurrentUpdatesAdapter;
 import com.pranay.helpers.Utils;
@@ -44,7 +43,6 @@ public class FeedListFragment extends Fragment {
         // Inflate the layout for this fragment
 
         contentView = (ViewGroup) inflater.inflate(R.layout.fragment_feed_list, container, false);
-        ((HomeActivity)getActivity()).getSupportActionBar().hide();
         initView(contentView);
 
         prepareFeed();
