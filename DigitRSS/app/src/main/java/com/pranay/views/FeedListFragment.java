@@ -57,14 +57,15 @@ public class FeedListFragment extends Fragment {
         AsyncTask asyncTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
-                feedItemArrayList = Utils.getFeedList();
+                feedItemArrayList = Utils.getFeedList(getContext());
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                setAdapter();
+                feedItemArrayList = Utils.getFeedItemsFromDB(getContext());
+                setAdapter(feedItemArrayList);
                 mProgressBar.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
@@ -93,11 +94,11 @@ public class FeedListFragment extends Fragment {
     }
 
 
-    public void setAdapter(){
+    public void setAdapter(ArrayList<FeedItem> feedItems){
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new CurrentUpdatesAdapter(feedItemArrayList);
+        mAdapter = new CurrentUpdatesAdapter(feedItems);
         recyclerView.setAdapter(mAdapter);
     }
 

@@ -2,8 +2,9 @@ package com.pranay.digitrss;
 
 import android.app.SearchManager;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 public class SearchResultsActivity extends AppCompatActivity {
@@ -26,6 +27,8 @@ public class SearchResultsActivity extends AppCompatActivity {
     private void handleIntent(Intent intent){
         if(Intent.ACTION_SEARCH.equals(intent.getAction())){
             query = intent.getStringExtra(SearchManager.QUERY);
+
+            Log.d("SearchResultsActivity",query);
         }
     }
 }
