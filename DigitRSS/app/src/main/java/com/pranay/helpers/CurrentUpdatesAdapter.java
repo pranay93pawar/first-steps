@@ -23,13 +23,11 @@ import java.util.ArrayList;
  * Created by pranay on 25/06/16.
  */
 public class CurrentUpdatesAdapter extends RecyclerView.Adapter<CurrentUpdatesAdapter.ViewHolder> {
-    ArrayList<String> mDataset;
     static ArrayList<FeedItem> feedItemArrayList = new ArrayList<FeedItem>();
+    ArrayList<String> mDataset;
 
 
-
-
-    public CurrentUpdatesAdapter(ArrayList<FeedItem> xfeedItemArrayList){
+    public CurrentUpdatesAdapter(ArrayList<FeedItem> xfeedItemArrayList) {
         feedItemArrayList = xfeedItemArrayList;
     }
 
@@ -58,7 +56,7 @@ public class CurrentUpdatesAdapter extends RecyclerView.Adapter<CurrentUpdatesAd
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
         CardView cardView;
         TextView author;
@@ -81,14 +79,14 @@ public class CurrentUpdatesAdapter extends RecyclerView.Adapter<CurrentUpdatesAd
         public void onClick(View view) {
             int position = getAdapterPosition();
             String url = feedItemArrayList.get(position).getNavigationLink();
-            Snackbar.make(view,"Hello",Snackbar.LENGTH_LONG).show();
+            Snackbar.make(view, "Hello", Snackbar.LENGTH_LONG).show();
 
             WebViewPagerFragment webViewPagerFragment = new WebViewPagerFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt("position",position);
-            bundle.putParcelableArrayList("data",feedItemArrayList);
+            bundle.putInt("position", position);
+            bundle.putParcelableArrayList("data", feedItemArrayList);
             webViewPagerFragment.setArguments(bundle);
-            ((HomeActivity)mContext).LoadFragment(webViewPagerFragment);
+            ((HomeActivity) mContext).LoadFragment(webViewPagerFragment);
 
 
         }

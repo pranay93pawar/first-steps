@@ -19,7 +19,7 @@ import com.pranay.digitrss.R;
 public class WebViewFragment extends Fragment {
     WebView webView;
     ViewGroup contentView;
-    String urlToLoad ="";
+    String urlToLoad = "";
     ProgressBar mProgressBar;
 
     public WebViewFragment() {
@@ -33,16 +33,16 @@ public class WebViewFragment extends Fragment {
         // Inflate the layout for this fragment
 
         contentView = (ViewGroup) inflater.inflate(R.layout.fragment_web_view, container, false);
-        Bundle bundle= getArguments();
+        Bundle bundle = getArguments();
         urlToLoad = bundle.getString("urlToLoad");
 
         initView(contentView);
-        Snackbar.make(container,"Hello",Snackbar.LENGTH_LONG).show();
+        Snackbar.make(container, "Hello", Snackbar.LENGTH_LONG).show();
         return contentView;
 
     }
 
-    public void initView(ViewGroup viewGroup){
+    public void initView(ViewGroup viewGroup) {
 
         webView = (WebView) viewGroup.findViewById(R.id.webView);
         mProgressBar = (ProgressBar) viewGroup.findViewById(R.id.progressBarForWebView);
@@ -51,7 +51,6 @@ public class WebViewFragment extends Fragment {
         webView.setVisibility(View.VISIBLE);
         webView.loadUrl(urlToLoad);
         webView.setWebViewClient(new Callback());
-
 
 
     }

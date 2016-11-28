@@ -9,6 +9,17 @@ import android.os.Parcelable;
 
 public class FeedItem implements Parcelable {
 
+    public static final Creator<FeedItem> CREATOR = new Creator<FeedItem>() {
+        @Override
+        public FeedItem createFromParcel(Parcel in) {
+            return new FeedItem(in);
+        }
+
+        @Override
+        public FeedItem[] newArray(int size) {
+            return new FeedItem[size];
+        }
+    };
     private String title;
     private String navigationLink;
     private String imageLink;
@@ -16,9 +27,10 @@ public class FeedItem implements Parcelable {
     private String pubDate;
     private String postAuthor;
 
-    public FeedItem(){
+    public FeedItem() {
 
     }
+
     public FeedItem(Parcel in) {
         title = in.readString();
         navigationLink = in.readString();
@@ -42,18 +54,6 @@ public class FeedItem implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<FeedItem> CREATOR = new Creator<FeedItem>() {
-        @Override
-        public FeedItem createFromParcel(Parcel in) {
-            return new FeedItem(in);
-        }
-
-        @Override
-        public FeedItem[] newArray(int size) {
-            return new FeedItem[size];
-        }
-    };
 
     public String getTitle() {
         return title;

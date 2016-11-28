@@ -32,7 +32,7 @@ public class Utils {
     public static ArrayList<FeedItem> feedItemArrayList = new ArrayList<>();
     public static Context mContext;
 
-    public static ArrayList<FeedItem> getFeedList(Context context){
+    public static ArrayList<FeedItem> getFeedList(Context context) {
 
         mContext = context;
 
@@ -42,7 +42,7 @@ public class Utils {
 
             xmlJSONObj = XML.toJSONObject(response);
             parseJSON(xmlJSONObj);
-            insertFeedItemsInDB(feedItemArrayList,mContext);
+            insertFeedItemsInDB(feedItemArrayList, mContext);
 
 
         } catch (Exception e) {
@@ -52,29 +52,25 @@ public class Utils {
         return feedItemArrayList;
     }
 
-    public static InputStream getInputStream(URL url){
+    public static InputStream getInputStream(URL url) {
 
         try {
 
             return url.openConnection().getInputStream();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return null;
         }
     }
 
-    private static String getResponseText() throws IOException
-    {
-        StringBuilder response  = new StringBuilder();
+    private static String getResponseText() throws IOException {
+        StringBuilder response = new StringBuilder();
         String stringUrl = "http://feeds.feedburner.com/digit/latest-from-digit";
         URL url = new URL(stringUrl);
-        HttpURLConnection httpconn = (HttpURLConnection)url.openConnection();
-        if (httpconn.getResponseCode() == HttpURLConnection.HTTP_OK)
-        {
-            BufferedReader input = new BufferedReader(new InputStreamReader(httpconn.getInputStream()),8192);
+        HttpURLConnection httpconn = (HttpURLConnection) url.openConnection();
+        if (httpconn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            BufferedReader input = new BufferedReader(new InputStreamReader(httpconn.getInputStream()), 8192);
             String strLine = null;
-            while ((strLine = input.readLine()) != null)
-            {
+            while ((strLine = input.readLine()) != null) {
                 response.append(strLine);
             }
             input.close();
@@ -82,14 +78,14 @@ public class Utils {
         return response.toString();
     }
 
-    public static void parseJSON(JSONObject jSONObj){
+    public static void parseJSON(JSONObject jSONObj) {
 
         try {
-            JSONObject rssJsonObject= jSONObj.getJSONObject("rss");
+            JSONObject rssJsonObject = jSONObj.getJSONObject("rss");
             JSONObject channelJsonObject = rssJsonObject.getJSONObject("channel");
             JSONArray itemJsonArray = channelJsonObject.getJSONArray("item");
 
-            for(int i = 0 ;i< itemJsonArray.length() ; i++){
+            for (int i = 0; i < itemJsonArray.length(); i++) {
                 FeedItem feedItem = new FeedItem();
                 feedItem.setTitle(itemJsonArray.getJSONObject(i).getString("title"));
                 feedItem.setPostAuthor(itemJsonArray.getJSONObject(i).getString("author"));
@@ -105,31 +101,29 @@ public class Utils {
         }
     }
 
-    public void getImage(){    }
-
-    public static void insertFeedItemsInDB(ArrayList<FeedItem> feedItems, Context mContext){
+    public static void insertFeedItemsInDB(ArrayList<FeedItem> feedItems, Context mContext) {
 
         RssFeedDbHelper mDbHelper = new RssFeedDbHelper(mContext);
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.execSQL("DELETE FROM "+ RssFeedDbHelper.FeedEntry.TABLE_NAME);
+        db.execSQL("DELETE FROM " + RssFeedDbHelper.FeedEntry.TABLE_NAME);
 
-        for(FeedItem feedItem : feedItems){
+        for (FeedItem feedItem : feedItems) {
             ContentValues values = new ContentValues();
-            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_TITLE,feedItem.getTitle());
-            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_DESCRIPTION,feedItem.getDescription());
-            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_IMAGE_LINK,feedItem.getImageLink());
-            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_POST_AUTHOR,feedItem.getPostAuthor());
-            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_PUB_DATE,feedItem.getPubDate());
-            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_NAVIGATION_LINK,feedItem.getNavigationLink());
-            db.insert(RssFeedDbHelper.FeedEntry.TABLE_NAME,null,values);
+            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_TITLE, feedItem.getTitle());
+            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_DESCRIPTION, feedItem.getDescription());
+            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_IMAGE_LINK, feedItem.getImageLink());
+            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_POST_AUTHOR, feedItem.getPostAuthor());
+            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_PUB_DATE, feedItem.getPubDate());
+            values.put(RssFeedDbHelper.FeedEntry.COLUMN_NAME_NAVIGATION_LINK, feedItem.getNavigationLink());
+            db.insert(RssFeedDbHelper.FeedEntry.TABLE_NAME, null, values);
 
         }
 
         //db.close();
     }
 
-    public static ArrayList<FeedItem> getFeedItemsFromDB(Context mContext){
+    public static ArrayList<FeedItem> getFeedItemsFromDB(Context mContext) {
         ArrayList<FeedItem> feedItems = new ArrayList<>();
 
         RssFeedDbHelper mDbHelper = new RssFeedDbHelper(mContext);
@@ -137,19 +131,19 @@ public class Utils {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
-            RssFeedDbHelper.FeedEntry.COLUMN_NAME_TITLE,
-            RssFeedDbHelper.FeedEntry.COLUMN_NAME_DESCRIPTION,
-            RssFeedDbHelper.FeedEntry.COLUMN_NAME_POST_AUTHOR,
-            RssFeedDbHelper.FeedEntry.COLUMN_NAME_PUB_DATE,
-            RssFeedDbHelper.FeedEntry.COLUMN_NAME_IMAGE_LINK,
-            RssFeedDbHelper.FeedEntry.COLUMN_NAME_NAVIGATION_LINK
+                RssFeedDbHelper.FeedEntry.COLUMN_NAME_TITLE,
+                RssFeedDbHelper.FeedEntry.COLUMN_NAME_DESCRIPTION,
+                RssFeedDbHelper.FeedEntry.COLUMN_NAME_POST_AUTHOR,
+                RssFeedDbHelper.FeedEntry.COLUMN_NAME_PUB_DATE,
+                RssFeedDbHelper.FeedEntry.COLUMN_NAME_IMAGE_LINK,
+                RssFeedDbHelper.FeedEntry.COLUMN_NAME_NAVIGATION_LINK
 
         };
 
 
-        Cursor c = db.query(RssFeedDbHelper.FeedEntry.TABLE_NAME,projection,null,null,null,null,null);
+        Cursor c = db.query(RssFeedDbHelper.FeedEntry.TABLE_NAME, projection, null, null, null, null, null);
         c.moveToFirst();
-        do{
+        do {
             FeedItem feedItem = new FeedItem();
             feedItem.setTitle(c.getString(c.getColumnIndexOrThrow(RssFeedDbHelper.FeedEntry.COLUMN_NAME_TITLE)));
             feedItem.setDescription(c.getString(c.getColumnIndexOrThrow(RssFeedDbHelper.FeedEntry.COLUMN_NAME_TITLE)));
@@ -161,10 +155,13 @@ public class Utils {
             feedItems.add(feedItem);
             c.moveToNext();
 
-        }while (!c.isLast());
+        } while (!c.isLast());
 
         return feedItems;
 
+    }
+
+    public void getImage() {
     }
 }
 

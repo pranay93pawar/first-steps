@@ -21,9 +21,9 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class WebViewPagerFragment extends Fragment {
-    private int position;
-    private ArrayList<FeedItem> feedItemArrayList ;
     ViewPager viewPager;
+    private int position;
+    private ArrayList<FeedItem> feedItemArrayList;
 
     public WebViewPagerFragment() {
         // Required empty public constructor
@@ -36,9 +36,9 @@ public class WebViewPagerFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_web_view_pager, container, false);
 
-        ((AppBarLayout)((HomeActivity)getActivity()).findViewById(R.id.app_bar)).setExpanded(false);
+        ((AppBarLayout) ((HomeActivity) getActivity()).findViewById(R.id.app_bar)).setExpanded(false);
 
-        ActionBar actionBar = ((HomeActivity)getActivity()).getSupportActionBar();
+        ActionBar actionBar = ((HomeActivity) getActivity()).getSupportActionBar();
 //        actionBar.setDisplayHomeAsUpEnabled(true);
 //        actionBar.setHomeButtonEnabled(true);
 
@@ -47,7 +47,7 @@ public class WebViewPagerFragment extends Fragment {
         return v;
     }
 
-    public void initView(View v){
+    public void initView(View v) {
 
         viewPager = (ViewPager) v.findViewById(R.id.pager_web_view);
         Bundle bundle = getArguments();
@@ -55,8 +55,8 @@ public class WebViewPagerFragment extends Fragment {
         feedItemArrayList = bundle.getParcelableArrayList("data");
     }
 
-    public void setAdapter(){
-        WebViewPagerAdapter webViewPagerAdapter = new WebViewPagerAdapter(getFragmentManager(),feedItemArrayList);
+    public void setAdapter() {
+        WebViewPagerAdapter webViewPagerAdapter = new WebViewPagerAdapter(getFragmentManager(), feedItemArrayList);
         viewPager.setAdapter(webViewPagerAdapter);
         viewPager.setCurrentItem(position);
     }

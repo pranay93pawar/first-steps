@@ -24,13 +24,13 @@ import java.util.ArrayList;
  */
 public class FeedListFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private ArrayList<FeedItem> feedItemArrayList = new ArrayList<FeedItem>();
     ArrayList<String> countries = new ArrayList<>();
     CurrentUpdatesAdapter mAdapter;
     ViewGroup contentView;
     ProgressBar mProgressBar;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView recyclerView;
+    private ArrayList<FeedItem> feedItemArrayList = new ArrayList<FeedItem>();
 
     public FeedListFragment() {
         // Required empty public constructor
@@ -51,7 +51,7 @@ public class FeedListFragment extends Fragment {
     }
 
 
-    public void prepareFeed(){
+    public void prepareFeed() {
 
 
         AsyncTask asyncTask = new AsyncTask() {
@@ -75,7 +75,7 @@ public class FeedListFragment extends Fragment {
     }
 
 
-    public void initView(ViewGroup viewGroup){
+    public void initView(ViewGroup viewGroup) {
 
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.recyclerView1);
         mProgressBar = (ProgressBar) viewGroup.findViewById(R.id.progressBar);
@@ -94,7 +94,7 @@ public class FeedListFragment extends Fragment {
     }
 
 
-    public void setAdapter(ArrayList<FeedItem> feedItems){
+    public void setAdapter(ArrayList<FeedItem> feedItems) {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 

@@ -29,7 +29,7 @@ public class WebViewPagerAdapter extends FragmentStatePagerAdapter {
 
         WebViewFragment webViewFragment = new WebViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("urlToLoad",url);
+        bundle.putString("urlToLoad", url);
         webViewFragment.setArguments(bundle);
         return webViewFragment;
     }
