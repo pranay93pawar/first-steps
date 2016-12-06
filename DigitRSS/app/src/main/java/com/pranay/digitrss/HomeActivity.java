@@ -19,7 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.pranay.views.FeedListFragment;
+import com.pranay.views.TabFragment;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -63,8 +63,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void setView() {
-        FeedListFragment feedListFragment = new FeedListFragment();
-        LoadFragment(feedListFragment);
+        TabFragment tabFragment = new TabFragment();
+        LoadFragment(tabFragment);
     }
 
     public void LoadFragment(Fragment fragmentToLoad) {
