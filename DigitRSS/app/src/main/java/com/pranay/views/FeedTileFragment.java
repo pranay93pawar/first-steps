@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,8 +97,8 @@ public class FeedTileFragment extends Fragment {
     }
 
     public void setAdapter(ArrayList<FeedItem> feedItems) {
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this.getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getActivity(),2);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         mAdapter = new TileAdapter(feedItems);
         recyclerView.setAdapter(mAdapter);
