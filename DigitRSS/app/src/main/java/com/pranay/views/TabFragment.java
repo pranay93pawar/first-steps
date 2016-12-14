@@ -58,7 +58,7 @@ public class TabFragment extends Fragment {
     }
 
 
-    static class PagerAdapter extends FragmentPagerAdapter {
+    class PagerAdapter extends FragmentPagerAdapter {
         List<Fragment> mFragmentList = new ArrayList<Fragment>();
         List<String> mFragmentTitleList = new ArrayList<String>();
 
@@ -86,5 +86,4 @@ public class TabFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
-
 }

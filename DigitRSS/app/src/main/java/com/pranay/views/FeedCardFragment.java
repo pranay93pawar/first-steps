@@ -29,7 +29,6 @@ import java.util.ArrayList;
  */
 public class FeedCardFragment extends Fragment {
 
-    ArrayList<String> countries = new ArrayList<>();
     FeedCardFragment.ListAdapter mAdapter;
     ViewGroup contentView;
     ProgressBar mProgressBar;
@@ -48,33 +47,9 @@ public class FeedCardFragment extends Fragment {
         contentView = (ViewGroup) inflater.inflate(R.layout.fragment_feed_list, container, false);
         initView(contentView);
 
-        prepareFeed();
+        setAdapter();
 
         return contentView;
-    }
-
-
-    public void prepareFeed() {
-
-
-        AsyncTask asyncTask = new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] params) {
-                feedItemArrayList = Utils.getFeedList(getContext());
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                super.onPostExecute(o);
-                feedItemArrayList = Utils.getFeedItemsFromDB(getContext());
-                setAdapter(feedItemArrayList);
-                mProgressBar.setVisibility(View.GONE);
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        };
-
-        asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
 
@@ -87,21 +62,39 @@ public class FeedCardFragment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                prepareFeed();
-            }
 
+                new AsyncTask<Object,Void,Object>() {
+
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
+                        feedItemArrayList = Utils.getFeedList(getContext());
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Object o) {
+                        super.onPostExecute(o);
+                        setAdapter();
+                    }
+                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
 
         });
 
-
     }
 
-    public void setAdapter(ArrayList<FeedItem> feedItems) {
+    public void setAdapter() {
+
+        feedItemArrayList = Utils.getFeedItemsFromDB(getContext());
+
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new FeedCardFragment.ListAdapter(feedItems);
+        mAdapter = new FeedCardFragment.ListAdapter(feedItemArrayList);
         recyclerView.setAdapter(mAdapter);
+
+        mProgressBar.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 

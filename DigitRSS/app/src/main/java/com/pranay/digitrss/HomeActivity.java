@@ -2,8 +2,8 @@ package com.pranay.digitrss;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,11 +18,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.pranay.helpers.Utils;
+import com.pranay.models.FeedItem;
 import com.pranay.views.TabFragment;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private AppBarLayout appBarLayout;
+    private static ArrayList<FeedItem> feedItemArrayList = new ArrayList<FeedItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +34,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-        toolbar.setTitle("Digit");
+        toolbar.setTitle("rss feed");
 
-        toolbar.setSubtitle("RSS Feed");
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -48,7 +50,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         initView();
-        setView();
+        prepareDigitFeed(true);
 
     }
 
@@ -128,5 +130,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void prepareDigitFeed(boolean firstCall) {
+        final boolean firstCallTemp = firstCall;
+
+        AsyncTask<Object,Void,Object> asyncTask = new AsyncTask<Object,Void,Object>() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+                feedItemArrayList = Utils.getFeedList(getApplicationContext());
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                if(firstCallTemp){setView();}
+            }
+        };
+
+        asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }
