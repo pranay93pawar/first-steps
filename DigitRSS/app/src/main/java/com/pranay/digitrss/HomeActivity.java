@@ -4,7 +4,10 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -27,11 +30,21 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static ArrayList<FeedItem> feedItemArrayList = new ArrayList<FeedItem>();
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        initView();
+
+        prepareDigitFeed(true);
+
+    }
+
+
+    public void initView() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("rss feed");
@@ -49,18 +62,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        initView();
-        prepareDigitFeed(true);
-
-    }
-
-
-    public void initView() {
-
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationViewOnItemSelectedListener bottomNavigationViewOnItemSelectedListener = new BottomNavigationViewOnItemSelectedListener();
+        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationViewOnItemSelectedListener);
 
     }
 
     public void setView() {
+
         TabFragment tabFragment = new TabFragment();
         LoadFragment(tabFragment);
     }
@@ -150,5 +159,24 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         };
 
         asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    public class BottomNavigationViewOnItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            String text = "Bottom Navigation Bar";
+            switch (item.getItemId()){
+                case R.id.action_recents:
+                    break;
+                case R.id.action_favorites:
+                    break;
+                case R.id.actions_notifications:
+                    break;
+            }
+            Snackbar.make(findViewById(R.id.contentFragment),text,Snackbar.LENGTH_LONG).show();
+            return false;
+        }
     }
 }
