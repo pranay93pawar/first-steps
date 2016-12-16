@@ -63,7 +63,7 @@ public class FeedTileFragment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new AsyncTask<Object,Void,Object>() {
+                new AsyncTask<Object, Void, Object>() {
                     @Override
                     protected Object doInBackground(Object[] objects) {
                         feedItemArrayList = Utils.getFeedList(getContext());
@@ -86,7 +86,7 @@ public class FeedTileFragment extends Fragment {
     public void setAdapter() {
         feedItemArrayList = Utils.getFeedItemsFromDB(getContext());
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getActivity(),2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getActivity(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         mAdapter = new TileAdapter(feedItemArrayList);

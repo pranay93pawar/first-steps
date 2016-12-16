@@ -144,7 +144,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void prepareDigitFeed(boolean firstCall) {
         final boolean firstCallTemp = firstCall;
 
-        AsyncTask<Object,Void,Object> asyncTask = new AsyncTask<Object,Void,Object>() {
+        AsyncTask<Object, Void, Object> asyncTask = new AsyncTask<Object, Void, Object>() {
             @Override
             protected Object doInBackground(Object[] params) {
                 feedItemArrayList = Utils.getFeedList(getApplicationContext());
@@ -154,20 +154,22 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                if(firstCallTemp){setView();}
+                if (firstCallTemp) {
+                    setView();
+                }
             }
         };
 
         asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    public class BottomNavigationViewOnItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+    public class BottomNavigationViewOnItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             String text = "Bottom Navigation Bar";
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.action_recents:
                     break;
                 case R.id.action_favorites:
@@ -175,7 +177,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.actions_notifications:
                     break;
             }
-            Snackbar.make(findViewById(R.id.contentFragment),text,Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.contentFragment), text, Snackbar.LENGTH_LONG).show();
             return false;
         }
     }

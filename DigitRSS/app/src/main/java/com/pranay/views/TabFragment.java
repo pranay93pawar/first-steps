@@ -40,19 +40,19 @@ public class TabFragment extends Fragment {
     }
 
 
-    public void initView(ViewGroup viewGroup){
+    public void initView(ViewGroup viewGroup) {
         tabLayout = (TabLayout) viewGroup.findViewById(R.id.tabs);
         dashBoardViewPager = (ViewPager) viewGroup.findViewById(R.id.dashBoardViewPager);
         tabLayout.setupWithViewPager(dashBoardViewPager);
         setViewPager(dashBoardViewPager);
     }
 
-    public void setViewPager(ViewPager viewPager){
+    public void setViewPager(ViewPager viewPager) {
 
         PagerAdapter pagerAdapter = new PagerAdapter(getFragmentManager());
-        pagerAdapter.addFragment(new FeedListFragment(),"Card");
-        pagerAdapter.addFragment(new FeedTileFragment(),"Tile");
-        pagerAdapter.addFragment(new FeedCardFragment(),"List");
+        pagerAdapter.addFragment(new FeedListFragment(), "Card");
+        pagerAdapter.addFragment(new FeedTileFragment(), "Tile");
+        pagerAdapter.addFragment(new FeedCardFragment(), "List");
         viewPager.setAdapter(pagerAdapter);
 
     }
@@ -62,7 +62,7 @@ public class TabFragment extends Fragment {
         List<Fragment> mFragmentList = new ArrayList<Fragment>();
         List<String> mFragmentTitleList = new ArrayList<String>();
 
-        public PagerAdapter(FragmentManager fm){
+        public PagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -76,7 +76,7 @@ public class TabFragment extends Fragment {
             return mFragmentTitleList.size();
         }
 
-        public void addFragment(Fragment fragment,String title){
+        public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }

@@ -63,7 +63,7 @@ public class FeedCardFragment extends Fragment {
             @Override
             public void onRefresh() {
 
-                new AsyncTask<Object,Void,Object>() {
+                new AsyncTask<Object, Void, Object>() {
 
                     @Override
                     protected Object doInBackground(Object[] objects) {
